@@ -8,23 +8,6 @@ pub struct ThreadPool{
     sender: mpsc::Sender<Message>,
 }
 
-trait FnBox {
-    fn call_box(self: Box<Self>);
-}
-
-impl<F: FnOnce()> FnBox for F {
-    fn call_box(self: Box<F>) {
-        (*self)()
-    }
-}
-
-type Job = Box<FnBox + Send + 'static>;
-
-enum Message {
-    NewJob(Job),
-    Terminate,
-}
-
 impl ThreadPool {
     /// 新しいThreadPoolを生成する。
     ///
@@ -124,4 +107,21 @@ impl Worker {
             thread: Some(thread),
         }
     }
+}
+
+trait FnBox {
+    fn call_box(self: Box<Self>);
+}
+
+impl<F: FnOnce()> FnBox for F {
+    fn call_box(self: Box<F>) {
+        (*self)()
+    }
+}
+
+type Job = Box<FnBox + Send + 'static>;
+
+enum Message {
+    NewJob(Job),
+    Terminate,
 }
