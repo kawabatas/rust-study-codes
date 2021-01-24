@@ -23,11 +23,11 @@ fn main() {
 //     temp_vec
 // }
 
-// 手続き的マクロ
-use proc_macro;
-#[some_attribute]
-pub fn some_name(input: TokenStream) -> TokenStream {
-}
+// // 手続き的マクロ
+// use proc_macro;
+// #[some_attribute]
+// pub fn some_name(input: TokenStream) -> TokenStream {
+// }
 // カスタムのderive マクロの書き方
 use hello_macro::HelloMacro;
 use hello_macro_derive::HelloMacro;
